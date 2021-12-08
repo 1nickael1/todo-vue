@@ -6,7 +6,6 @@
 				<img class="icon-sun" src="./assets/images/icon-sun.svg" />
 			</div>
 			<div class="create-todo">
-				<a></a>
 				<input v-model="newTodo"  placeholder="Create a new todo..." @keyup.enter="addNewTodo" />
 			</div>
 			<div class="container-todo">
@@ -19,7 +18,7 @@
 					</div>
 					<img @click="removeTodo(index)" src="./assets/images/icon-cross.svg" alt="">
 				</div>
-				<div v-if="todosOriginal.length > 0" class="list-todos-footer">
+				<div v-if="todosOriginal.length > 0" class="list-todos-footer" :class="[{'full-border-radius': todosToShow.length < 1}]">
 					<p>{{todosOriginal.length}} items left</p>
 					<div class="buttons-footer">
 						<p @click="listAllTodos" :class="[{'buttons-footer-active': buttonActive === 1}]">All</p>
@@ -29,7 +28,7 @@
 					<p @click="clearCompleted">Clear Completed</p>
 				</div>
 			</div>
-			<div class="buttons-footer-mobile">
+			<div v-if="todosOriginal.length > 0" class="buttons-footer-mobile">
 				<p @click="listAllTodos" :class="[{'buttons-footer-active': buttonActive === 1}]">All</p>
 				<p @click="listActiveTodos" :class="[{'buttons-footer-active': buttonActive === 2}]">Active</p>
 				<p @click="listCompletedTodos" :class="[{'buttons-footer-active': buttonActive === 3}]">Completed</p>
@@ -68,10 +67,12 @@ export default defineComponent({
 				this.todosToShow = this.todosOriginal
 			},
 			addNewTodo() {
-				this.todosOriginal.push({descript: this.newTodo, completed: false});
-				this.newTodo = '';
-	
-				this.setOnLocalStorage();
+				if(this.newTodo.trim().length > 0) {
+					this.todosOriginal.push({descript: this.newTodo, completed: false});
+					this.newTodo = '';
+		
+					this.setOnLocalStorage();
+				}
 			},
 			checkTodo(index) {
 				if(this.todosOriginal[index].completed) {
