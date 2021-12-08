@@ -1,6 +1,6 @@
 :root {
     --primary: hsl(220, 98%, 61%);
-    --check-background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+    --check-background: linear-gradient(to bottom right,#57ddff, #c058f3);
 
     --very-dark-blue: hsl(235, 21%, 11%);
     --very-dark-desaturated-blue: hsl(235, 24%, 19%);
@@ -59,13 +59,14 @@
 .create-todo {
     width: 100%;
     height: 80px;
-    background: var(--very-dark-grayish-blue);
+    background: var(--very-dark-desaturated-blue);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     border-radius: 10px;
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
     margin-top: 5vh;
+    /* padding: 10px 0; */
 }
 
 .create-todo > input {
@@ -76,14 +77,22 @@
     font-family: 'Josefin Sans', sans-serif;
     outline: none;
     height: 20px;
+    max-height: 100%;
+    width: 100%;
+    margin-right: 20px;
     text-align: left;
+}
+
+.create-todo > input::placeholder {
+    color: var(--very-dark-grayish-blue);
 }
 
 .create-todo > a {
     height: 20px;
     width: 20px;
+    min-width: 20px;
     border-radius: 20px;
-    border: 2px solid var(--very-dark-grayish-blue-check);
+    border: 2px solid var(--very-dark-grayish-blue);
     margin-left: 20px;
     cursor: pointer;
 }
@@ -103,33 +112,42 @@
 
 .list-todos {
     width: 100%;
-    height: 80px;
-    background: var(--very-dark-grayish-blue);
+    height: 100%;
+    min-height: 80px;
+    background: var(--very-dark-desaturated-blue);
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     /* border-radius: 10px; */
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
     /* margin-top: 5vh; */
-    border-top-color: var(--light-grayish-blue);
+    border-top-color: var(--very-dark-grayish-blue);
     border-top-width: 1px;
     border-top-style: solid;
 }
 
-.list-todos > input {
-    color: var(--light-grayish-blue);
-    margin-left: 20px;
-    background: inherit;
-    font-size: 20px;
-    font-family: 'Josefin Sans', sans-serif;
-    outline: none;
-    height: 20px;
-    text-align: left;
+.list-todos > div {
+    display: flex;
+    align-items: center;
+    max-height: 100%;
+    padding: 20px 0px;
 }
 
-.list-todos > a {
+.list-todos > div > p {
+    margin-left: 20px;
+    max-width: 100%;
+    word-break: break-word;
+}
+
+.list-todos > img {
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.list-todos > div > a {
     height: 20px;
     width: 20px;
+    min-width: 20px;
     border-radius: 20px;
     border: 2px solid var(--very-dark-grayish-blue-check);
     margin-left: 20px;
@@ -139,32 +157,91 @@
     align-items: center;
 }
 
-.list-todos > p {
-    color: var(--light-grayish-blue);
-    margin-left: 20px;
-}
-
 .list-todos-footer {
     width: 100%;
     height: 80px;
-    background: var(--very-dark-grayish-blue);
+    background: var(--very-dark-desaturated-blue);
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     /* border-radius: 10px; */
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
     /* margin-top: 5vh; */
-    border-top-color: var(--light-grayish-blue);
+    border-top-color: var(--very-dark-grayish-blue);
     border-top-width: 1px;
     border-top-style: solid;
 }
 
 .list-todos-footer > p {
-    color: var(--light-grayish-blue);
+    color: var(--very-dark-grayish-blue);
+}
+
+.list-todos-footer > :first-child {
     margin-left: 20px;
+}
+
+.list-todos-footer > :last-child {
+    margin-right: 20px;
     cursor: pointer;
+}
+
+.buttons-footer {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+    color: var(--very-dark-grayish-blue);
+    
+}
+
+.buttons-footer > p {
+    cursor: pointer;
+}
+
+.icon-checked {
+    background-image: var(--check-background);
 }
 
 .text-checked {
     text-decoration: line-through;
+    color: var(--very-dark-grayish-blue-check);
+}
+
+.text-unchecked {
+    color: var(--light-grayish-blue);
+}
+
+.buttons-footer-active {
+    color: var(--primary);
+}
+
+.buttons-footer-mobile {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    color: var(--very-dark-grayish-blue);
+    background: var(--very-dark-desaturated-blue);
+    margin-top: 20px;
+    border-radius: 20px;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.buttons-footer-mobile > p {
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+.buttons-footer-mobile > :last-child {
+    margin-right: 0px;
+}
+
+@media (max-width: 1024px) {
+    .buttons-footer {
+        display: none;
+    }
+
+    .buttons-footer-mobile {
+        display: flex;
+    }
 }
