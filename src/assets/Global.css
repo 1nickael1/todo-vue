@@ -110,10 +110,20 @@
     cursor: pointer;
 }
 
-.container-todo {
+.container-all-todo {
     margin-top: 40px;
-    /* padding-bottom: 20px; */
     height: 100%;
+}
+
+.container-drag > :first-child {
+    border-radius: 10px 10px 0 0;
+}
+
+.container-all-todo > :last-child {
+    border-radius: 0 0 10px 10px;
+}
+
+.container-todo {
 }
 
 .container-todo > .container-drag > :first-child {
@@ -125,12 +135,16 @@
     border-radius:  0 0 0px 0px;
 }
 
+/* .smooth-dnd-container.vertical > .smooth-dnd-draggable-wrapper {
+    display: flex !important;
+} */
+
 .list-todos {
     width: 100%;
     height: 100%;
     min-height: 80px;
     background: var(--very-dark-desaturated-blue);
-    display: flex;
+    display: flex !important;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

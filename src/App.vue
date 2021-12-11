@@ -9,9 +9,9 @@
 				<div class="create-todo">
 					<input v-model="newTodo"  placeholder="Create a new todo..." @keyup.enter="addNewTodo" />
 				</div>
-				<div class="container-todo">
+				<div class="container-all-todo">
 					<Container class="container-drag" @drop="onDrop" orientation="vertical">
-						<Draggable  class="list-todos" v-for="(todo, index) in todosToShow" :key="index">
+						<Draggable drag-class="list-todos" class="list-todos" v-for="(todo, index) in todosToShow" :key="index">
 							<div style="width: 100%">
 								<a :class="[{'icon-checked': todo.completed}]" @click="checkTodo(index)">
 									<img v-if="todo.completed" src="./assets/images/icon-check.svg" />
