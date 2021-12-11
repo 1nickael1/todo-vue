@@ -54,7 +54,7 @@ export default defineComponent({
 					newTodo: '',
 					buttonActive: 1,
 					lightMode: false,
-					iconSunOrMoon: IconMoon,
+					iconSunOrMoon: IconSun,
 				}
 		},
 		mounted() {
@@ -117,9 +117,9 @@ export default defineComponent({
 			lightAdnDarkMode() {
 				this.lightMode = !this.lightMode;
 				if(this.lightMode) {
-					this.iconSunOrMoon = IconSun;
-				} else {
 					this.iconSunOrMoon = IconMoon
+				} else {
+					this.iconSunOrMoon = IconSun;
 				}
 			}
 	
