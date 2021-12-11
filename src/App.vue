@@ -21,7 +21,7 @@
 							<img @click="removeTodo(index)" src="./assets/images/icon-cross.svg" alt="">
 						</Draggable>
 					</Container>
-					<div v-if="todosOriginal.length > 0" class="list-todos-footer" :class="[{'full-border-radius': todosToShow.length < 1}]">
+					<div v-if="todosOriginal.length > 0" class="list-todos-footer">
 						<p>{{todosOriginal.length}} items left</p>
 						<div class="buttons-footer">
 							<p @click="listAllTodos" :class="[{'buttons-footer-active': buttonActive === 1}]">All</p>
@@ -67,13 +67,22 @@ export default defineComponent({
 		methods: {
 			recoveryTodos() {
 				const todosRecovered =  JSON.parse(localStorage.getItem('@todos'))
+				this.lightMode =  JSON.parse(localStorage.getItem('@lightmode'))
+				
 				if(todosRecovered) {
 					this.todosOriginal = todosRecovered;
 					this.todosToShow = todosRecovered;
 				}
+
+				if(this.lightMode) {
+					this.iconSunOrMoon = IconMoon
+				} else {
+					this.iconSunOrMoon = IconSun;
+				}
 			},
 			setOnLocalStorage() {
 				localStorage.setItem('@todos', JSON.stringify(this.todosOriginal));
+				localStorage.setItem('@lightmode', JSON.stringify(this.lightMode));
 				this.todosToShow = this.todosOriginal
 			},
 			addNewTodo() {
@@ -125,6 +134,8 @@ export default defineComponent({
 				} else {
 					this.iconSunOrMoon = IconSun;
 				}
+
+				this.setOnLocalStorage()
 			},
 			applyDrag(arr, dragResult) {
 				const { removedIndex, addedIndex, payload } = dragResult;
