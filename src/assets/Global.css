@@ -116,13 +116,13 @@
     height: 100%;
 }
 
-.container-todo > :first-child {
+.container-todo > .container-drag > :first-child {
     border: inherit;
     border-radius: 10px 10px 0 0;
 }
 
-.container-todo > :last-child {
-    border-radius:  0 0 10px 10px;
+.container-todo > .container-drag > :last-child {
+    border-radius:  0 0 0px 0px;
 }
 
 .list-todos {
@@ -131,6 +131,7 @@
     min-height: 80px;
     background: var(--very-dark-desaturated-blue);
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     /* border-radius: 10px; */

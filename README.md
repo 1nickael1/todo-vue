@@ -6,4 +6,4 @@
 - Filter by all/active/complete todos [X]
 - Clear all completed todos [X]
 - Toggle light and dark mode [X]
-- **Bonus**: Drag and drop to reorder items on the list []
+- **Bonus**: Drag and drop to reorder items on the list [X]

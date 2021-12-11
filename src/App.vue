@@ -10,15 +10,17 @@
 					<input v-model="newTodo"  placeholder="Create a new todo..." @keyup.enter="addNewTodo" />
 				</div>
 				<div class="container-todo">
-					<div class="list-todos" v-for="(todo, index) in todosToShow" :key="index">
-						<div style="width: 100%">
-							<a :class="[{'icon-checked': todo.completed}]" @click="checkTodo(index)">
-								<img v-if="todo.completed" src="./assets/images/icon-check.svg" />
-							</a>
-							<p :class="[{'text-checked': todo.completed}, {'text-unchecked': !todo.completed}]">{{todo.descript}}</p>
-						</div>
-						<img @click="removeTodo(index)" src="./assets/images/icon-cross.svg" alt="">
-					</div>
+					<Container class="container-drag" @drop="onDrop" orientation="vertical">
+						<Draggable  class="list-todos" v-for="(todo, index) in todosToShow" :key="index">
+							<div style="width: 100%">
+								<a :class="[{'icon-checked': todo.completed}]" @click="checkTodo(index)">
+									<img v-if="todo.completed" src="./assets/images/icon-check.svg" />
+								</a>
+								<p :class="[{'text-checked': todo.completed}, {'text-unchecked': !todo.completed}]">{{todo.descript}}</p>
+							</div>
+							<img @click="removeTodo(index)" src="./assets/images/icon-cross.svg" alt="">
+						</Draggable>
+					</Container>
 					<div v-if="todosOriginal.length > 0" class="list-todos-footer" :class="[{'full-border-radius': todosToShow.length < 1}]">
 						<p>{{todosOriginal.length}} items left</p>
 						<div class="buttons-footer">
@@ -45,6 +47,7 @@ import IconSun from './assets/images/icon-sun.svg';
 import IconMoon from './assets/images/icon-moon.svg';
 import './assets/Global.css';
 // import TodoCard from './components/TodoCard'
+import { Container, Draggable } from "vue3-smooth-dnd";
 export default defineComponent({
 		name: 'App',
 		data() {
@@ -57,6 +60,7 @@ export default defineComponent({
 					iconSunOrMoon: IconSun,
 				}
 		},
+		components: {Container, Draggable},
 		mounted() {
 			this.recoveryTodos();
 		},
@@ -121,6 +125,28 @@ export default defineComponent({
 				} else {
 					this.iconSunOrMoon = IconSun;
 				}
+			},
+			applyDrag(arr, dragResult) {
+				const { removedIndex, addedIndex, payload } = dragResult;
+
+				if (removedIndex === null && addedIndex === null) return arr;
+				const result = [...arr];
+				let itemToAdd = payload;
+				
+				if (removedIndex !== null) {
+					itemToAdd = result.splice(removedIndex, 1)[0];
+				}
+				if (addedIndex !== null) {
+					result.splice(addedIndex, 0, itemToAdd);
+				}
+				return result;
+			},
+			onDrop (dropResult) {
+				let newList = this.applyDrag(this.todosOriginal, dropResult);
+				
+				this.todosToShow = newList;
+				this.todosOriginal = newList;
+				this.setOnLocalStorage();
 			}
 	
 		}
