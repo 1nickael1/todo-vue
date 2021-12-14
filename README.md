@@ -7,3 +7,5 @@
 - Clear all completed todos [X]
 - Toggle light and dark mode [X]
 - **Bonus**: Drag and drop to reorder items on the list [X]
+
+You can see on live: https://nick-todo-vue.netlify.app/
